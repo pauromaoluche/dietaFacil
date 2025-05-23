@@ -1,5 +1,4 @@
 from fastapi import APIRouter
-from schemas.base import CalculoDieta
 
 router = APIRouter()
 
