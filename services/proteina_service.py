@@ -1,7 +1,7 @@
-from models.base import NivelAtividadeEnum, ObjetivoEnum
-from models.dieta import CalculoProteinaInput
+from schemas.base import CalculoDieta
+from schemas.enum import NivelAtividadeEnum, ObjetivoEnum
 
-def calcular_proteina(input: CalculoProteinaInput): 
+def calcular_proteina(input: CalculoDieta): 
     proteina_por_kg = get_proteina_por_kg(input.atividade)
 
     if isinstance(proteina_por_kg, tuple):

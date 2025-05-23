@@ -1,12 +1,11 @@
 from fastapi import APIRouter
 from schemas.base import CalculoDieta
-from services.proteina_service import calcular_proteina
 
 router = APIRouter()
 
 router = APIRouter(
     prefix="/api",
-    tags=["Cálculo de Proteinas"]
+    tags=["Cálculo de Carboidratos"]
 )
 
 @router.post("/calcularProteinas")

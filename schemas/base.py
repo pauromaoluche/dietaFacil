@@ -1,7 +1,7 @@
+from schemas.enum import NivelAtividadeEnum, ObjetivoEnum
 from pydantic import BaseModel, Field
-from models.base import NivelAtividadeEnum, ObjetivoEnum
 
-class CalculoProteinaInput(BaseModel):
+class CalculoDieta(BaseModel):
     atividade: NivelAtividadeEnum = Field(
         ...,
         description=(
