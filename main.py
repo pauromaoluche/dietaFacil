@@ -1,9 +1,10 @@
 from fastapi import FastAPI
-from routes import dieta, proteina
+from routes import dieta, proteina, gasto_basal
 
 app = FastAPI()
 app.include_router(dieta.router)
 app.include_router(proteina.router)
+app.include_router(gasto_basal.router)
 
 # class PerfilDieta(BaseModel):
 #     peso: float = Field(..., gt=0, description="Peso em kg")

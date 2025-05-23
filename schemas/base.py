@@ -1,4 +1,4 @@
-from schemas.enum import NivelAtividadeEnum, ObjetivoEnum
+from schemas.enum import NivelAtividadeEnum, ObjetivoEnum, SexoEnum
 from pydantic import BaseModel, Field
 
 class CalculoDieta(BaseModel):
@@ -23,3 +23,15 @@ class CalculoDieta(BaseModel):
         )
     )
     peso: float = Field(..., description="Seu peso em kg")
+    
+class CalculoBasal(BaseModel):
+    peso: float = Field(..., description="Seu peso em kg"),
+    altura: int = Field(..., description="Altura em cm"),
+    idade: int = Field(..., description="Sua idade"),
+    sexo: SexoEnum = Field(
+        ...,
+        description=(
+            "0 = Homem "
+            "1 = Mulher"
+        )
+    )
