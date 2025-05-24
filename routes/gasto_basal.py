@@ -1,6 +1,6 @@
 from fastapi import APIRouter
-from schemas.base import CalculoBasal
-from services.gasto_basal import calculo_basal
+from schemas.base import CalculoBasal, GastoTotal
+from services.gasto_basal import calculo_basal, gasto_energetico_total
 
 
 router = APIRouter()
@@ -11,5 +11,9 @@ router = APIRouter(
 )
 
 @router.post("/calculoBasal")
-def calcular(input: CalculoBasal):
+def calculo_Basal(input: CalculoBasal):
     return calculo_basal(input)
+
+@router.post("/gastoEnergeticoTotal")
+def gasto_de_energia_total(input: GastoTotal):
+    return gasto_energetico_total(input)
