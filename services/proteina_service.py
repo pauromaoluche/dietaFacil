@@ -6,10 +6,10 @@ def calcular_proteina(input: CalculoDieta):
     proteina_por_kg = get_proteina_por_kg(input.atividade)
     
     if hasattr(input, 'percentual_gordura') and input.percentual_gordura > 30:
-        # fazer estimativad e % de massa magra da pessoa de acordo com o percentual de gordura informado
+        # Faz a estimativa de quanto a pessoa tem de massa magra, para fazer o calculo de proteina, caso a pessoa tenha mais de 30% de gordura
         massa_magra = calc_massa_magra(input.percentual_gordura, input.peso)
         input.peso = massa_magra["massa_magra"]
-    elif hasattr(input, 'estado_fisico') and input.estado_fisico > EstadoFisicoEnum.normal:
+    elif hasattr(input, 'estado_fisico') and input.estado_fisico > EstadoFisicoEnum.sobrepeso:
         estimar_gordura = estimar_perc_gordura(input.estado_fisico, input.sexo)
         
         massa_magra = calc_massa_magra(estimar_gordura, input.peso)
@@ -32,9 +32,9 @@ def calcular_proteina(input: CalculoDieta):
 def get_proteina_por_kg(atividade: NivelAtividadeEnum) -> tuple[float, float]:
     match atividade:
         case NivelAtividadeEnum.sedentario:
-            return (0.8, 0.8)
+            return (0.8, 1.0)
         case NivelAtividadeEnum.atleta_esporadico:
-            return (1.0, 1.0)
+            return (1.0, 1.1)
         case NivelAtividadeEnum.resistencia:
             return (1.0, 1.5)
         case NivelAtividadeEnum.misto:
