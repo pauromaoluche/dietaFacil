@@ -1,19 +1,10 @@
 from schemas.base import CalculoDieta
 from schemas.enum import NivelAtividadeEnum, EstadoFisicoEnum, ObjetivoEnum
-from services.corporal import estimar_perc_gordura, calc_massa_magra
+from services.corporal import get_peso_referencia
 
 def calcular_carboidratos(input: CalculoDieta):
+    peso = get_peso_referencia(input)
     carboidrato_por_atividade = get_carboidrato_por_atividade(input.atividade)
-    
-    if hasattr(input, 'percentual_gordura') and input.percentual_gordura > 25:
-        # Faz a estimativa de quanto a pessoa tem de massa magra, para fazer o calculo de proteina, caso a pessoa tenha mais de 30% de gordura
-        massa_magra = calc_massa_magra(input.percentual_gordura, input.peso)
-        peso_referencia = massa_magra["massa_magra"]
-    elif hasattr(input, 'estado_fisico') and input.estado_fisico >= EstadoFisicoEnum.sobrepeso:
-        estimar_gordura = estimar_perc_gordura(input.estado_fisico, input.sexo)
-        
-        massa_magra = calc_massa_magra(estimar_gordura, input.peso)
-        peso_referencia = massa_magra["massa_magra"]
         
     if isinstance(carboidrato_por_atividade, tuple):
         match input.objetivo:
@@ -26,7 +17,7 @@ def calcular_carboidratos(input: CalculoDieta):
     else:
         valor_carboidrato = carboidrato_por_atividade[0]
     
-    return valor_carboidrato * peso_referencia
+    return round(valor_carboidrato * peso, 2)
 
 def get_carboidrato_por_atividade(atividade: NivelAtividadeEnum) -> tuple[float, float]:
     match atividade:
