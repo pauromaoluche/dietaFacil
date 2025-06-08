@@ -1,4 +1,6 @@
 from fastapi import APIRouter
+from schemas.base import CalculoDieta
+from services.dieta_service import calcular_macros
 
 router = APIRouter()
 
@@ -8,5 +10,5 @@ router = APIRouter(
 )
 
 @router.post("/calcularDieta")
-def calcular(teste):
-    return "teste"
+def calcular(input: CalculoDieta):
+    return calcular_macros(input)
