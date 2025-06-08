@@ -1,22 +1,15 @@
 from schemas.base import CalculoDieta
-from services.corporal import estimar_perc_gordura, calc_massa_magra, get_peso_referencia
+from services.corporal import estimar_perc_gordura, calc_massa_magra, get_peso_referencia, imc, peso_idel
 from schemas.enum import NivelAtividadeEnum, ObjetivoEnum, EstadoFisicoEnum
 
 def calcular_proteina(input: CalculoDieta): 
-    peso = get_peso_referencia(input)
-    proteina_por_kg = get_proteina_por_kg(input.atividade)
-      
-    if isinstance(proteina_por_kg, tuple):
-        valor_proteina = (
-            proteina_por_kg[0] if input.objetivo == ObjetivoEnum.emagrecer else
-            proteina_por_kg[1] if input.objetivo == ObjetivoEnum.hipertrofia else
-            sum(proteina_por_kg) / 2
-        )
-    else:
-        valor_proteina = proteina_por_kg[0]
-    
-    return round(valor_proteina * peso, 2)
-
+    calc_imc = imc(input.peso, input.altura)
+    peso_referencia = input.peso
+    if input.percentual_gordura > 25:
+        if calc_imc["imc"] > 24.9:
+            peso_referencia = round(peso_idel(24.9, input.altura), 1)   
+    return round(2 * peso_referencia, 2)
+    #return round(valor_proteina * peso_referencia, 2)
 
 def get_proteina_por_kg(atividade: NivelAtividadeEnum) -> tuple[float, float]:
     match atividade:
