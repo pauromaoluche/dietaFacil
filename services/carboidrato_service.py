@@ -1,9 +1,15 @@
 from schemas.base import CalculoDieta
-from schemas.enum import NivelAtividadeEnum, EstadoFisicoEnum, ObjetivoEnum
-from services.corporal import get_peso_referencia
+from schemas.enum import NivelAtividadeEnum, ObjetivoEnum
+from services.corporal_service import imc, peso_idel
 
 def calcular_carboidratos(input: CalculoDieta):
-    peso = get_peso_referencia(input)
+
+    calc_imc = imc(input.peso, input.altura)
+    peso_referencia = input.peso
+    if input.percentual_gordura > 25:
+        if calc_imc["imc"] > 24.9:
+            peso_referencia = round(peso_idel(24.9, input.altura), 1)
+
     carboidrato_por_atividade = get_carboidrato_por_atividade(input.atividade)
         
     if isinstance(carboidrato_por_atividade, tuple):
@@ -17,7 +23,7 @@ def calcular_carboidratos(input: CalculoDieta):
     else:
         valor_carboidrato = carboidrato_por_atividade[0]
     
-    return round(valor_carboidrato * peso, 2)
+    return round(valor_carboidrato * peso_referencia, 2)
 
 def get_carboidrato_por_atividade(atividade: NivelAtividadeEnum) -> tuple[float, float]:
     match atividade:
