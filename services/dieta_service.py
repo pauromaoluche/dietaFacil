@@ -1,19 +1,24 @@
 from services.proteina_service import calcular_proteina
 from services.gordura_service import calcular_gordura
 from services.gasto_basal import gasto_energetico_total, calculo_basal
-from schemas.base import CalculoDieta, GastoTotal, CalculoBasal, ObjetivoEnum
+from schemas.base import CalculoDieta, GastoTotal, CalculoBasal, ObjetivoEnum, ResultadoDieta
 
-def calcular_macros(input: CalculoDieta) -> dict:
+def calcular_macros(input: CalculoDieta) -> ResultadoDieta:
     info_basal = CalculoBasal(
-        peso=input.peso,
-        altura=input.altura,
-        idade=input.idade,
-        sexo=input.sexo
+        peso = input.peso,
+        altura = input.altura,
+        idade = input.idade,
+        sexo = input.sexo
     )
 
-    basal = calculo_basal(info_basal)
+    basal = calculo_basal(info_basal).gasto_basal
 
-    tdee = round(gasto_energetico_total(basal, input.nivel_atividade), 0)
+    gasto_total = GastoTotal(
+        basal = basal,
+        frequencia_atividade = input.frequencia_atividade
+    )
+
+    tdee = gasto_energetico_total(gasto_total).gasto_energetico_total
 
     # Ajuste calórico baseado no objetivo e porcentagem personalizada
     if input.objetivo == ObjetivoEnum.emagrecer:
@@ -23,10 +28,10 @@ def calcular_macros(input: CalculoDieta) -> dict:
     else:  # manter
         calorias_ajustadas = tdee
 
-    proteina = calcular_proteina(input)
+    proteina = calcular_proteina(input).proteinas
     calorias_proteina = proteina * 4
 
-    gordura = calcular_gordura(input.peso, input.objetivo)
+    gordura = calcular_gordura(input).gordura
     calorias_gordura = gordura * 9
 
     calorias_alocadas = calorias_proteina + calorias_gordura
@@ -40,20 +45,20 @@ def calcular_macros(input: CalculoDieta) -> dict:
     pct_gordura = (calorias_gordura / calorias_ajustadas) * 100
     pct_carboidrato = (calorias_carboidrato / calorias_ajustadas) * 100
 
-    return {
-        "gasto_basal": round(basal, 2),
-        "gasto_energetico_total": round(tdee, 2),
-        "calorias": round(calorias_ajustadas, 2),
-        "proteina": {
-            "gramas": round(proteina, 2),
+    return ResultadoDieta(
+        gasto_basal=basal,
+        gasto_energetico_total=tdee,
+        calorias=round(calorias_ajustadas, 2),
+        proteina={
+            "gramas": proteina,
             "percentual": round(pct_proteina, 2)
         },
-        "gordura": {
-            "gramas": round(gordura, 2),
+        gordura={
+            "gramas": gordura,
             "percentual": round(pct_gordura, 2)
         },
-        "carboidrato": {
-            "gramas": round(carboidrato, 2),
+        carboidrato={
+            "gramas": carboidrato,
             "percentual": round(pct_carboidrato, 2)
         }
-    }
+    )
