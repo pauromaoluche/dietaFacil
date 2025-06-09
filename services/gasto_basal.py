@@ -18,7 +18,7 @@ def calculo_basal(input: CalculoBasal) -> int:
 
     return ResultadoGEB(gasto_basal=round(calc))
         
-def gasto_energetico_total(input: GastoTotal) -> float:
+def gasto_energetico_total(input: GastoTotal) -> int:
     
     match input.frequencia_atividade:
         case NafEnum.sedentario:
