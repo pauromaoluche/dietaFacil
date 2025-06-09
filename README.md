@@ -1,5 +1,5 @@
 
-DietaFácil
+# 🍟 DietaFácil
 ==========
 
 DietaFácil é uma API intuitiva, desenvolvida com FastAPI, projetada para simplificar o cálculo de necessidades nutricionais diárias. Com ela, usuários podem obter estimativas precisas de macronutrientes (proteínas, gorduras, carboidratos), gasto energético basal (GEB) e gasto energético total (GET), facilitando o planejamento de dietas personalizadas para diversos objetivos, como emagrecimento, hipertrofia ou manutenção de peso, lembrando que aqui trago apenas medias, para valores exatos, consulte um nutricionista.
@@ -34,7 +34,7 @@ Para configurar e executar o DietaFácil localmente, siga os passos abaixo:
 Clone o repositório:
 
 ```
-git clone https://github.com/seu-usuario/dietaFacil.git
+git clone https://github.com/pauromaoluche/dietaFacil.git
 cd dietaFacil
 ```
 
@@ -186,20 +186,14 @@ Calcula as gorduras necessárias de acordo com o objetivo.
     - 4: obeso
 
 - **Resposta (JSON):** Retorna o valor em gramas de gordura por dia de acordo com o objetivo.
-
-Contribuição
-------------
-
-Contribuições são bem-vindas! Se você quiser melhorar este projeto, sinta-se à vontade para abrir uma issue ou enviar um pull request.
-
-Licença
 -------
 
-Este projeto está licenciado sob a Licença MIT.
+Este Projeto foi feito com intuito de aprendizado
 
 Contato
 -------
 
 Para dúvidas ou sugestões, entre em contato:
-
-[Seu Nome/GitHub User] - Seu E-mail
+Celuar: 43 998628444 (preferencial)
+E-mail: desenvpauluci@gmail.com
+Linkedin: https://www.linkedin.com/in/pedro-pauluci/
