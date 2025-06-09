@@ -102,7 +102,7 @@ class ResultadoProteina(BaseModel):
     proteinas: float = Field(..., description="Gramas de proteína recomendadas")
 
 class ResultadoGEB(BaseModel):
-    gasto_basal: int = Field(..., description="Gasto basal")
+    gasto_basal: int = Field(..., description="Gasto Basal")
 
 class ResultadoGET(BaseModel):
-    gasto_energetico_total: int = Field(..., description="Gasto basal")
+    gasto_energetico_total: int = Field(..., description="Gasto Energetico Total")
