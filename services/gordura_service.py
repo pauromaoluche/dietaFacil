@@ -2,7 +2,7 @@ from schemas.base import CalculoGordura, ResultadoGordura
 from schemas.enum import ObjetivoEnum
 #from services.corporal_service import get_peso_referencia
 
-def calcular_gordura(input: CalculoGordura) -> int:
+def calcular_gordura(input: CalculoGordura) -> ResultadoGordura:
     match input.objetivo:
         case ObjetivoEnum.emagrecer:
             quantidade = 0.8

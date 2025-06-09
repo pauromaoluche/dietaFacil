@@ -2,7 +2,7 @@ from schemas.base import CalculoBasal, ResultadoGEB, GastoTotal, ResultadoGET
 from schemas.enum import SexoEnum, NafEnum
 from services.corporal_service import imc, peso_idel
 
-def calculo_basal(input: CalculoBasal) -> int:
+def calculo_basal(input: CalculoBasal) -> ResultadoGEB:
 
     calc_imc = imc(input.peso, input.altura)
     peso_referencia = input.peso
@@ -18,7 +18,7 @@ def calculo_basal(input: CalculoBasal) -> int:
 
     return ResultadoGEB(gasto_basal=round(calc))
         
-def gasto_energetico_total(input: GastoTotal) -> int:
+def gasto_energetico_total(input: GastoTotal) -> ResultadoGET:
     
     match input.frequencia_atividade:
         case NafEnum.sedentario:

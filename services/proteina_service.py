@@ -2,7 +2,7 @@ from schemas.base import CalculoProteina, ResultadoProteina
 from schemas.enum import NivelAtividadeEnum
 from services.corporal_service import get_peso_referencia
 
-def calcular_proteina(input: CalculoProteina): 
+def calcular_proteina(input: CalculoProteina) -> ResultadoProteina: 
 
     peso_referencia = get_peso_referencia(input)
 
