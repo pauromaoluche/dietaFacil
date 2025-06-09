@@ -34,7 +34,7 @@ class CalculoDieta(BaseModel):
     altura: int = Field(..., description="Altura em cm"),
     idade: int = Field(..., description="Sua idade"),
     nivel_calorico: int = Field(..., description="de 0 a 50%"),
-    nivel_atividade: NafEnum = Field(
+    frequencia_atividade: NafEnum = Field(
         ...,
         description=(
             "Nível de atividade:\n"
@@ -70,17 +70,8 @@ class CalculoBasal(BaseModel):
     )
     
 class GastoTotal(BaseModel):
-    peso: float = Field(..., description="Seu peso em kg"),
-    altura: int = Field(..., description="Altura em cm"),
-    idade: int = Field(..., description="Sua idade"),
-    sexo: SexoEnum = Field(
-        ...,
-        description=(
-            "0 = Homem "
-            "1 = Mulher"
-        )
-    )
-    nivel_atividade: NafEnum = Field(
+    basal: float = Field(..., description="Seu peso em kg"),
+    frequencia_atividade: NafEnum = Field(
         ...,
         description=(
             "Nível de atividade:\n"
@@ -109,3 +100,9 @@ class CalculoProteina(BaseModel):
     
 class ResultadoProteina(BaseModel):
     proteinas: float = Field(..., description="Gramas de proteína recomendadas")
+
+class ResultadoGEB(BaseModel):
+    gasto_basal: int = Field(..., description="Gasto basal")
+
+class ResultadoGET(BaseModel):
+    gasto_energetico_total: int = Field(..., description="Gasto basal")
