@@ -17,6 +17,7 @@ router = APIRouter(
 ### Parâmetros de entrada:
 - **peso**: Peso do usuário (kg)
 - **altura**: Altura do usuário (cm)
+- **idade**: Idade do usuario
 - **sexo**
   - masculino = 0
   - feminino = 1
