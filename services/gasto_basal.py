@@ -1,6 +1,6 @@
 from schemas.base import CalculoBasal, ResultadoGEB, GastoTotal, ResultadoGET
 from schemas.enum import SexoEnum, NafEnum
-from services.corporal import imc, peso_idel
+from services.corporal_service import imc, peso_idel
 
 def calculo_basal(input: CalculoBasal) -> int:
 
