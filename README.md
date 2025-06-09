@@ -2,7 +2,7 @@
 DietaFácil
 ==========
 
-DietaFácil é uma API robusta e intuitiva, desenvolvida com FastAPI, projetada para simplificar o cálculo de necessidades nutricionais diárias. Com ela, usuários podem obter estimativas precisas de macronutrientes (proteínas, gorduras, carboidratos), gasto energético basal (GEB) e gasto energético total (GET), facilitando o planejamento de dietas personalizadas para diversos objetivos, como emagrecimento, hipertrofia ou manutenção de peso.
+DietaFácil é uma API intuitiva, desenvolvida com FastAPI, projetada para simplificar o cálculo de necessidades nutricionais diárias. Com ela, usuários podem obter estimativas precisas de macronutrientes (proteínas, gorduras, carboidratos), gasto energético basal (GEB) e gasto energético total (GET), facilitando o planejamento de dietas personalizadas para diversos objetivos, como emagrecimento, hipertrofia ou manutenção de peso, lembrando que aqui trago apenas medias, para valores exatos, consulte um nutricionista.
 
 Funcionalidades
 --------------
