@@ -6,7 +6,7 @@ class CalculoDieta(BaseModel):
     atividade: NivelAtividadeEnum = Field(
         ...,
         description=(
-            "Nível de atividade:\n"
+            "- **Nível** de atividade:\n"
             "0 = sedentário\n"
             "1 = atleta esporádico\n"
             "2 = resistência\n"
@@ -30,7 +30,21 @@ class CalculoDieta(BaseModel):
             "0 = Homem "
             "1 = Mulher"
         )
-    )
+    ),
+    altura: int = Field(..., description="Altura em cm"),
+    idade: int = Field(..., description="Sua idade"),
+    nivel_calorico: int = Field(..., description="de 0 a 50%"),
+    nivel_atividade: NafEnum = Field(
+        ...,
+        description=(
+            "Nível de atividade:\n"
+            "0 = Sedentário (pouca ou nenhuma atividade)\n"
+            "1 = atleta esporádico (1-3 dias por semana)\n"
+            "2 = ativa (3-5 dias por semana)\n"
+            "3 = muito ativa (5-7 dias por semana)\n"
+            "4 = muito ativa e intensa (diária, incluindo exercícios pesados)"
+        )
+    ) 
     percentual_gordura: Optional[float] = Field(
         None, description="Percentual de gordura corporal, se souber"
     )
@@ -69,10 +83,29 @@ class GastoTotal(BaseModel):
     nivel_atividade: NafEnum = Field(
         ...,
         description=(
-            "0 = sedentario "
-            "1 = atleta_esporadico "
-            "2 = ativo "
-            "3 = muito_ativo "
-            "4 extremamente_ativo"
+            "Nível de atividade:\n"
+            "0 = Sedentário (pouca ou nenhuma atividade)\n"
+            "1 = atleta esporádico (1-3 dias por semana)\n"
+            "2 = ativa (3-5 dias por semana)\n"
+            "3 = muito ativa (5-7 dias por semana)\n"
+            "4 = muito ativa e intensa (diária, incluindo exercícios pesados)"
         )
     )   
+
+class CalculoProteina(BaseModel):
+    peso: float = Field(..., description="Seu peso em kg"),
+    altura: int = Field(..., description="Altura em cm"),
+    percentual_gordura: Optional[float] = Field(
+        None, description="Percentual de gordura corporal, se souber"
+    )
+    estado_fisico: Optional[EstadoFisicoEnum] = Field(
+        None, description="Seu estado físico estimado (caso não saiba o percentual de gordura)"
+    )
+    @model_validator(mode="after")
+    def validar_gordura_ou_estado(self) -> 'CalculoDieta':
+        if self.percentual_gordura is None and self.estado_fisico is None:
+            raise ValueError("Informe ao menos 'percentual_gordura' ou 'estado_fisico'")
+        return self
+    
+class ResultadoProteina(BaseModel):
+    proteinas: float = Field(..., description="Gramas de proteína recomendadas")
